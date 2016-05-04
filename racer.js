@@ -15,10 +15,12 @@ var raceCar = function (ID, keyNum, name) {
       this.position += this.speed;
       this.carElement.style.left = this.position + 'px';
       if(this.speed > 0) {
+        console.log(this.name + " Speed: " + this.speed + " px/sec");
         this.speed -= 0.01;
       }
       if (this.position > this.carElement.parentElement.offsetWidth - this.carElement.offsetWidth) {
         carWins(this);
+
       }
     }
   }
@@ -40,7 +42,7 @@ window.addEventListener("keyup", keyPressed);
 
 window.setInterval(function () {
   updateCars();
-}, 40);
+}, 50);
 
 function keyPressed(event){
 

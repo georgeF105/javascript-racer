@@ -1,15 +1,37 @@
 
+body {
+  background-image: url("images/background-grass.jpg");
+}
+
 .header {
+
+  /* border: 10px solid black; */
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+ 
+ .header-title{
+  border-radius: 15px;
+  background: #FFFF00;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  border: 10px solid black;
-}
+  width: 50%;
+  padding:5px;
+ }
+ .header-title-inner{
+  border: 3px solid black;
+  border-radius: 10px;
+  /* margin:5px; */
+ }
 
 .container{
-  background: green;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  background: white;
+  border-top: 10px dashed red;
+  border-bottom: 10px dashed red;
+
+  /* padding-top: 10px; */
+  /* padding-bottom: 10px; */
   /* margin-left: 30px; */
   /* margin-right: 30px; */
 }

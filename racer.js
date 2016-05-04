@@ -1,13 +1,21 @@
 
-var raceCar = function (ID, keyNum) {
+var racing = false;
+
+var raceCar = function (ID, keyNum, name) {
   this.carElement = document.getElementById(ID);
   this.position = 0;
   this.speed = 0;
   this.keyNum = keyNum;
-  this.moveCar = function(){
-    this.position += 1;
+  this.name = name;
+  this.buttonPush = function () {
+    this.speed += 0.1;
+  }
+  this.update = function () {
+    this.position += this.speed;
     this.carElement.style.left = this.position + 'px';
-    console.log("Moved " + this.carElement.innerHTML)
+    if(this.speed > 0) {
+      this.speed -= 0.01;
+    }
   }
 };
 
@@ -16,22 +24,32 @@ var raceCar = function (ID, keyNum) {
 // var raceCar3 = document.getElementById("car-3");
 // var raceCar4 = document.getElementById("car-4");
 var raceCars = [];
-raceCars[0] = new raceCar("car-1",65);
-raceCars[1] = new raceCar("car-2",68);
-raceCars[2] = new raceCar("car-3",71);
-raceCars[3] = new raceCar("car-4",74);
-
+raceCars[0] = new raceCar("car-1",65, "Player 1");
+raceCars[1] = new raceCar("car-2",68, "Player 2");
+raceCars[2] = new raceCar("car-3",71, "Player 3");
+raceCars[3] = new raceCar("car-4",74, "Player 4");
 
 // var raceCar1Pos = 0;
 
 window.addEventListener("keyup", keyPressed);
 
+window.setInterval(function () {
+  updateCars();
+}, 40);
+
 function keyPressed(event){
 
   console.log(event.which);
-  for(i = 0; i < raceCars.length; i++){
+  for (var i = 0; i < raceCars.length; i++) {
     if(raceCars[i].keyNum == event.which){
-      raceCars[i].moveCar();
+      raceCars[i].buttonPush();
     }
   }
 };
+
+function updateCars () {
+  for (var i = 0; i < raceCars.length; i++) {
+    raceCars[i].update();
+  }
+};
+

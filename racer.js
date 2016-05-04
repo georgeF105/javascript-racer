@@ -1,5 +1,5 @@
 
-var racing = false;
+var racing = true;
 
 var raceCar = function (ID, keyNum, name) {
   this.carElement = document.getElementById(ID);
@@ -8,13 +8,18 @@ var raceCar = function (ID, keyNum, name) {
   this.keyNum = keyNum;
   this.name = name;
   this.buttonPush = function () {
-    this.speed += 0.1;
+    this.speed += 0.2;
   }
   this.update = function () {
-    this.position += this.speed;
-    this.carElement.style.left = this.position + 'px';
-    if(this.speed > 0) {
-      this.speed -= 0.01;
+    if (racing) {
+      this.position += this.speed;
+      this.carElement.style.left = this.position + 'px';
+      if(this.speed > 0) {
+        this.speed -= 0.01;
+      }
+      if (this.position > this.carElement.parentElement.offsetWidth - this.carElement.offsetWidth) {
+        carWins(this);
+      }
     }
   }
 };
@@ -53,3 +58,16 @@ function updateCars () {
   }
 };
 
+function carWins (winningCar) {
+  racing = false;
+  alert(winningCar.name + " Wins!!");
+  resetGame();
+};
+
+function resetGame () {
+  for (var i = 0; i < raceCars.length; i++) {
+    raceCars[i].position = 0;
+    raceCars[i].speed = 0;
+  }
+  racing = true;
+}

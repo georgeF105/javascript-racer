@@ -62,14 +62,27 @@ body {
   position: absolute;
   top:25%;
   height: 50%;
+  z-index: 2;
   /* padding:2px; */
   /* border: 1px solid red; */
-  vertical-align: middle;
-  margin-top: auto;
-  margin-bottom: auto;
+  /* vertical-align: middle; */
+  /* margin-top: auto; */
+  /* margin-bottom: auto; */
 
 }
 
 .race-car>img{
   height:20px;
+}
+
+.player-info {
+  position: absolute;
+  left: 50px;
+  height: 50%;
+  top:25%;
+  color: #222221;
+  font-family: "Courier New";
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 1;
 }

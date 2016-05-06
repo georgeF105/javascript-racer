@@ -3,6 +3,9 @@ var racing = true;
 
 var raceCar = function (ID, keyNum, name) {
   this.carElement = document.getElementById(ID);
+  this.playerInfoElement = document.getElementById(ID + "-info");
+  this.playerNameElement = document.getElementById(ID + "-info-name");
+  this.playerKeyElement = document.getElementById(ID + "-info-key");
   this.position = 0;
   this.speed = 0;
   this.keyNum = keyNum;
@@ -23,6 +26,11 @@ var raceCar = function (ID, keyNum, name) {
 
       }
     }
+  }
+  this.updatePlayerInfo = function () {
+    this.playerNameElement.innerHTML = this.name;
+    this.playerKeyElement.innerHTML = " Hit " + String.fromCharCode(this.keyNum) + " to go";
+    // console.log "PlayerInfo - Name: " + this.name + " Key:" + String.fromCharCode(this.keyNum);
   }
 };
 
@@ -73,3 +81,11 @@ function resetGame () {
   }
   racing = true;
 }
+
+function updatePlayerInfo () {
+  for (var i = 0; i < raceCars.length; i++) {
+    raceCars[i].updatePlayerInfo();
+  }
+}
+
+updatePlayerInfo();

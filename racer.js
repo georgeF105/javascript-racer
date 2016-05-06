@@ -11,7 +11,7 @@ var raceCar = function (ID, keyNum, name) {
   this.keyNum = keyNum;
   this.name = name;
   this.buttonPush = function () {
-    this.speed += 0.2;
+    this.speed += 0.3;
   }
   this.update = function () {
     if (racing) {
@@ -19,7 +19,7 @@ var raceCar = function (ID, keyNum, name) {
       this.carElement.style.left = this.position + 'px';
       if(this.speed > 0) {
         console.log(this.name + " Speed: " + this.speed + " px/sec");
-        this.speed -= 0.01;
+        this.speed -= 0.05;
       }
       if (this.position > this.carElement.parentElement.offsetWidth - this.carElement.offsetWidth) {
         carWins(this);

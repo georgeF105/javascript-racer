@@ -1,72 +1,98 @@
 
 var racing = true;
 
-var raceCar = function (ID, keyNum, name) {
+var backgroundImagePos = 0;
+
+var raceCar = function (ID, upKey, downKey, lane, name) {
+  var lanes = [65,165,265,365];
   this.carElement = document.getElementById(ID);
   this.playerInfoElement = document.getElementById(ID + "-info");
   this.playerNameElement = document.getElementById(ID + "-info-name");
   this.playerKeyElement = document.getElementById(ID + "-info-key");
-  this.position = 0;
-  this.speed = 0;
-  this.keyNum = keyNum;
+  this.xPos = 300;
+  this.xSpeed = 0;
+  this.ySpeed = 0;
+  this.upKey = upKey;
+  this.downKey = downKey;
+  this.lane = lane;
+  var yPos = lanes[this.lane];
   this.name = name;
-  this.buttonPush = function () {
-    this.speed += 0.3;
-  }
-  this.update = function () {
-    if (racing) {
-      this.position += this.speed;
-      this.carElement.style.left = this.position + 'px';
-      if(this.speed > 0) {
-        console.log(this.name + " Speed: " + this.speed + " px/sec");
-        this.speed -= 0.05;
-      }
-      if (this.position > this.carElement.parentElement.offsetWidth - this.carElement.offsetWidth) {
-        carWins(this);
 
-      }
+  this.moveUp = function () {
+    console.log("moveUp");
+    if(this.lane > 0){
+      this.lane -= 1;
+      yPos = lanes[this.lane];
     }
   }
-  this.updatePlayerInfo = function () {
-    this.playerNameElement.innerHTML = this.name;
-    this.playerKeyElement.innerHTML = " Hit " + String.fromCharCode(this.keyNum) + " to go";
-    // console.log "PlayerInfo - Name: " + this.name + " Key:" + String.fromCharCode(this.keyNum);
+  this.moveDown = function () {
+    console.log("moveDown");
+    if(this.lane < lanes.length-1){
+      this.lane += 1;
+      yPos = lanes[this.lane];
+      console.log("new yPos = " + yPos);
+    }
+  }
+
+  this.update = function () {
+    if (racing) {
+      this.xPos += this.xSpeed;
+      this.carElement.style.left = this.xPos + 'px';
+      this.carElement.style.top = yPos + 'px';
+      
+      // if (this.xPos > this.carElement.parentElement.offsetWidth - this.carElement.offsetWidth) {
+      //   carWins(this);
+      // }
+    }
   }
 };
 
-// var raceCar1 = document.getElementById("car-1");
-// var raceCar2 = document.getElementById("car-2");
-// var raceCar3 = document.getElementById("car-3");
-// var raceCar4 = document.getElementById("car-4");
+
 var raceCars = [];
-raceCars[0] = new raceCar("car-1",65, "Player 1");
-raceCars[1] = new raceCar("car-2",68, "Player 2");
-raceCars[2] = new raceCar("car-3",71, "Player 3");
-raceCars[3] = new raceCar("car-4",74, "Player 4");
+raceCars[0] = new raceCar("car-1",38, 40, 2, "Player 1");
+//raceCars[1] = new raceCar("car-2",68, "Player 2");
+// raceCars[2] = new raceCar("car-3",71, "Player 3");
+// raceCars[3] = new raceCar("car-4",74, "Player 4");
 
 // var raceCar1Pos = 0;
 
 window.addEventListener("keyup", keyPressed);
 
 window.setInterval(function () {
-  updateCars();
+  update();
 }, 50);
 
 function keyPressed(event){
 
   console.log(event.which);
   for (var i = 0; i < raceCars.length; i++) {
-    if(raceCars[i].keyNum == event.which){
-      raceCars[i].buttonPush();
+    if(raceCars[i].upKey == event.which){
+      raceCars[i].moveUp();
+    }
+    if(raceCars[i].downKey == event.which){
+      raceCars[i].moveDown();
     }
   }
 };
+
+function update() {
+  updateCars();
+  updateBackground();
+}
 
 function updateCars () {
   for (var i = 0; i < raceCars.length; i++) {
     raceCars[i].update();
   }
 };
+
+function updateBackground() {
+  if(racing){
+    backgroundImagePos -= 1;
+    if(backgroundImagePos < -100){backgroundImagePos = 0}
+    $(".race-tracks").css("background-position", backgroundImagePos + "px 0px");
+  }
+}
 
 function carWins (winningCar) {
   racing = false;
@@ -82,10 +108,5 @@ function resetGame () {
   racing = true;
 }
 
-function updatePlayerInfo () {
-  for (var i = 0; i < raceCars.length; i++) {
-    raceCars[i].updatePlayerInfo();
-  }
-}
 
-updatePlayerInfo();
+

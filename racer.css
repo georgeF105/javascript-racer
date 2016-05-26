@@ -47,7 +47,7 @@ body {
   background-repeat: repeat-x; 
   background-size: 100px 500px;
   height: 500px;
-
+  position: relative;
   /* border-top: 3px solid #C9A11B;
   border-bottom: 3px solid #C9A11B; */
   /* padding-top: 10px;
@@ -68,9 +68,9 @@ body {
 }
 
 .race-car{
-  position: relative;
+  position: absolute;
   z-index: 2;
-  
+  border-radius: 8px;
   /* top:60px; */
 
 }

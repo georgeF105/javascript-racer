@@ -3,8 +3,18 @@ var racing = true;
 
 var backgroundImagePos = 0;
 
+function collisionCheck(object){
+  for(var i = 0; i < raceCars[i].length; i++){
+    if(object.ID != raceCars[i].ID && object.lane === raceCars[i].lane && his.xPos > raceCars[i].xPos - carLength && this.xPos < raceCars[i].xPos + carLength){
+      return raceCars[i];
+    }
+  }
+  return false;
+}
+
 var raceCar = function (ID, upKey, downKey, leftKey, rightKey, lane, name) {
   var lanes = [65,165,265,365];
+  this.ID = ID;
   this.carElement = document.getElementById(ID);
   this.playerInfoElement = document.getElementById(ID + "-info");
   this.playerNameElement = document.getElementById(ID + "-info-name");
@@ -27,13 +37,10 @@ var raceCar = function (ID, upKey, downKey, leftKey, rightKey, lane, name) {
     if(this.lane > 0){
       var clear = true;
       for(var i = 0; i < raceCars.length; i++){
-        if(raceCars[i].carElement != this.carElement && raceCars[i].lane === this.lane -1){
+        if(raceCars[i].ID != this.ID && raceCars[i].lane === this.lane -1){
           if(this.xPos > raceCars[i].xPos - carLength && this.xPos < raceCars[i].xPos + carLength){
             clear = false;
             this.carElement.style.border = "2px solid red";
-          }
-          else{
-            console.log("this.xPos = " + this.xPos + " RaceCars[i].xPos = " + raceCars[i].xPos);
           }
         }
       }
@@ -48,7 +55,7 @@ var raceCar = function (ID, upKey, downKey, leftKey, rightKey, lane, name) {
     var clear = true;
     if(this.lane < lanes.length-1){
       for(var i = 0; i < raceCars.length; i++){
-        if(raceCars[i].carElement != this.carElement && raceCars[i].lane === this.lane + 1){
+        if(raceCars[i].ID != this.ID && raceCars[i].lane === this.lane + 1){
           if(this.xPos > raceCars[i].xPos - carLength && this.xPos < raceCars[i].xPos + carLength){
             clear = false;
             this.carElement.style.border = "2px solid red";
@@ -118,16 +125,25 @@ var raceCar = function (ID, upKey, downKey, leftKey, rightKey, lane, name) {
       // console.log("here1");
       for(var i = 0; i < raceCars.length; i++){
         // console.log("here2");
-        if(this.carElement != raceCars[i].carElement && this.lane === raceCars[i].lane) {
+        if(this.ID != raceCars[i].ID && this.lane === raceCars[i].lane) {
            // console.log("here xPos= " + this.xPos + "i.xPos = " + raceCars[i].xPos);
           if(this.xPos > raceCars[i].xPos - carLength && this.xPos < raceCars[i].xPos + carLength){
-            this.xPos = raceCars[i].xPos - carLength;
-            this.xSpeed = 0;
-            if(this.xPos < 0){
-              console.log("HEERREE!");
-              this.xPos = 0;
-              raceCars[i].xPos = carLength;
+            if(this.xPos < raceCars[i].xPos){
+              this.xPos = raceCars[i].xPos - carLength;
+              this.xSpeed = 0;
             }
+            else{
+              raceCars[i].xPos = this.xPos - carLength;
+              raceCars[i].xSpeed = 0;
+            }
+          }
+          // if(this.xPos > raceCars[i].xPos - carLength && this.xPos < raceCars[i].xPos + carLength){
+          //   this.xPos = raceCars[i].xPos - carLength;
+          //   this.xSpeed = 0;
+          // }
+          if(this.xPos < 0){
+            this.xPos = 0;
+            raceCars[i].xPos = carLength;
           }
         }
       }

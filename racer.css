@@ -1,6 +1,8 @@
 
 body {
   background-image: url("images/background-grass.jpg");
+  /* background-size: 1500px 150%; */
+ 
 }
 
 .header {
@@ -11,6 +13,7 @@ body {
 }
  
  .header-title{
+  position: relative;
   border-radius: 15px;
   background: #FFFF00;
   margin-left: auto;
@@ -26,9 +29,11 @@ body {
  }
 
 .container{
-  background: white;
-  border-top: 10px dashed red;
-  border-bottom: 10px dashed red;
+  /* background-image: url("images/racetrack.png"); */
+  /* background-repeat: repeat-x; */
+  /* height: 500px; */
+  /* border-top: 10px dashed red; */
+  /* border-bottom: 10px dashed red; */
 
   /* padding-top: 10px; */
   /* padding-bottom: 10px; */
@@ -37,14 +42,18 @@ body {
 }
 
 .race-tracks{
-  background: #3E3E3E;
-  
-  border-top: 3px solid #C9A11B;
-  border-bottom: 3px solid #C9A11B;
-  padding-top: 10px;
+  background-image: url("images/racetrack-strip.png"); 
+  background-repeat: no-repeat;
+  background-repeat: repeat-x; 
+  background-size: 100px 500px;
+  height: 500px;
+  position: relative;
+  /* border-top: 3px solid #C9A11B;
+  border-bottom: 3px solid #C9A11B; */
+  /* padding-top: 10px;
   padding-bottom: 10px;
   padding-left: 30px;
-  padding-right: 30px;
+  padding-right: 30px; */
 }
 
 .race-track{
@@ -60,19 +69,14 @@ body {
 
 .race-car{
   position: absolute;
-  top:25%;
-  height: 50%;
   z-index: 2;
-  /* padding:2px; */
-  /* border: 1px solid red; */
-  /* vertical-align: middle; */
-  /* margin-top: auto; */
-  /* margin-bottom: auto; */
+  border-radius: 8px;
+  /* top:60px; */
 
 }
 
 .race-car>img{
-  height:20px;
+  height:60px;
 }
 
 .player-info {
